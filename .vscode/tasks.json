@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build and Run",
+        "type": "shell",
+        "command": "npx tsc && node dist/main.js",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": ["$tsc"],
+        "detail": "Compiles the TypeScript files and runs the compiled JavaScript code"
+      }
+    ]
+  }
