@@ -55,26 +55,660 @@ The abstract model approach is versatile and can be applied to a wide range of a
     - Manage various types of content such as articles, blogs, images, and videos.
     - Easily introduce new content types and storage backends as needed.
 
+    **New Model**: `Article`
+    
+    This example demonstrates how to create an `Article` model to manage content types like articles in a CMS. The model includes properties such as `title`, `content`, `author`, and `publishedDate`. It is registered in the model registry and integrated with the storage handling logic.
+
+    #### models/article.model.ts
+
+    ```typescript
+    import { AbstractModel } from "./abstract.model";
+
+    export type ArticleOptions = {
+        id: string;
+        title: string;
+        content: string;
+        author: string;
+        publishedDate: string;
+    }
+
+    export class Article extends AbstractModel {
+        public id: string = '';
+        public title: string = '';
+        public content: string = '';
+        public author: string = '';
+        public publishedDate: string = '';
+
+        constructor(options?: ArticleOptions) {
+            super(options || {id: '', title: '', content: '', author: '', publishedDate: ''});
+            this.id = options ? options.id : '';
+            this.title = options ? options.title : '';
+            this.content = options ? options.content : '';
+            this.author = options ? options.author : '';
+            this.publishedDate = options ? options.publishedDate : '';
+        }
+
+        public override validateOptions(options: ArticleOptions): void {
+            super.validateOptions(options);
+            if (!options.title || !options.content || !options.author || !options.publishedDate) {
+                throw new Error("Invalid options: all fields are required for Article");
+            }
+        }
+    }
+    ```
+
+    #### models/model.register.ts
+
+    ```typescript
+    import { User, UserOptions } from "./user.model";
+    import { Article, ArticleOptions } from "./article.model";
+
+    export const ModelType = {
+        User: User,
+        Article: Article
+    } as const;
+
+    export const CollectionPath = {
+        User: 'users',
+        Article: 'articles'
+    } as const;
+
+    export const ModelKeyToCollectionKey = {
+        User: 'users',
+        Article: 'articles'
+    } as const;
+
+    export type ModelOptionsTypes = {
+        User: UserOptions,
+        Article: ArticleOptions
+    }
+
+    export type ModelKeys = keyof typeof ModelType;
+    export type InstanceType<T> = T extends new (...args: any[]) => infer R ? R : any;
+    export type ModelInstance<K extends ModelKeys> = InstanceType<typeof ModelType[K]>;
+
+    export type InstanceOptions<K extends ModelKeys> = 
+        K extends 'User' ? UserOptions : 
+        K extends 'Article' ? ArticleOptions :
+        {id: string; }
+    ```
+
 2. **E-commerce Platforms**:
     - Handle different entities like products, orders, customers, and reviews.
     - Scale with increasing product types and customer data by adding new models and optimizing storage strategies.
+
+    **New Model**: `Product`
+    
+    This example demonstrates how to create a `Product` model to manage entities like products in an e-commerce platform. The model includes properties such as `name`, `description`, `price`, and `category`. It is registered in the model registry and integrated with the storage handling logic.
+
+    #### models/product.model.ts
+
+    ```typescript
+    import { AbstractModel } from "./abstract.model";
+
+    export type ProductOptions = {
+        id: string;
+        name: string;
+        description: string;
+        price: number;
+        category: string;
+    }
+
+    export class Product extends AbstractModel {
+        public id: string = '';
+        public name: string = '';
+        public description: string = '';
+        public price: number = 0;
+        public category: string = '';
+
+        constructor(options?: ProductOptions) {
+            super(options || {id: '', name: '', description: '', price: 0, category: ''});
+            this.id = options ? options.id : '';
+            this.name = options ? options.name : '';
+            this.description = options ? options.description : '';
+            this.price = options ? options.price : 0;
+            this.category = options ? options.category : '';
+        }
+
+        public override validateOptions(options: ProductOptions): void {
+            super.validateOptions(options);
+            if (!options.name || !options.description || !options.price || !options.category) {
+                throw new Error("Invalid options: all fields are required for Product");
+            }
+        }
+    }
+    ```
+
+    #### models/model.register.ts
+
+    ```typescript
+    import { User, UserOptions } from "./user.model";
+    import { Product, ProductOptions } from "./product.model";
+
+    export const ModelType = {
+        User: User,
+        Product: Product
+    } as const;
+
+    export const CollectionPath = {
+        User: 'users',
+        Product: 'products'
+    } as const;
+
+    export const ModelKeyToCollectionKey = {
+        User: 'users',
+        Product: 'products'
+    } as const;
+
+    export type ModelOptionsTypes = {
+        User: UserOptions,
+        Product: ProductOptions
+    }
+
+    export type ModelKeys = keyof typeof ModelType;
+    export type InstanceType<T> = T extends new (...args: any[]) => infer R ? R : any;
+    export type ModelInstance<K extends ModelKeys> = InstanceType<typeof ModelType[K]>;
+
+    export type InstanceOptions<K extends ModelKeys> = 
+        K extends 'User' ? UserOptions : 
+        K extends 'Product' ? ProductOptions :
+        {id: string; }
+    ```
 
 3. **Customer Relationship Management (CRM) Systems**:
     - Manage customer data, interactions, and support tickets.
     - Extend the system with new models for campaigns, leads, and sales pipelines.
 
+    **New Model**: `Lead`
+    
+    This example demonstrates how to create a `Lead` model to manage entities like leads in a CRM system. The model includes properties such as `name`, `contactInfo`, `status`, and `notes`. It is registered in the model registry and integrated with the storage handling logic.
+
+    #### models/lead.model.ts
+
+    ```typescript
+    import { AbstractModel } from "./abstract.model";
+
+    export type LeadOptions = {
+        id: string;
+        name: string;
+        contactInfo: string;
+        status: string;
+        notes?: string;
+    }
+
+    export class Lead extends AbstractModel {
+        public id: string = '';
+        public name: string = '';
+        public contactInfo: string = '';
+        public status: string = '';
+        public notes?: string = '';
+
+        constructor(options?: LeadOptions) {
+            super(options || {id: '', name: '', contactInfo: '', status: ''});
+            this.id = options ? options.id : '';
+            this.name = options ? options.name : '';
+            this.contactInfo = options ? options.contactInfo : '';
+            this.status = options ? options.status : '';
+            this.notes = options ? options.notes : '';
+        }
+
+        public override validateOptions(options: LeadOptions): void {
+            super.validateOptions(options);
+            if (!options.name || !options.contactInfo || !options.status) {
+                throw new Error("Invalid options: name, contactInfo, and status are required for Lead");
+            }
+        }
+    }
+    ```
+
+    #### models/model.register.ts
+
+    ```typescript
+    import { User, UserOptions } from "./user.model";
+    import { Lead, LeadOptions } from "./lead.model";
+
+    export const ModelType = {
+        User: User,
+        Lead: Lead
+    } as const;
+
+    export const CollectionPath = {
+        User: 'users',
+        Lead: 'leads'
+    } as const;
+
+    export const ModelKeyToCollectionKey = {
+        User: 'users',
+        Lead: 'leads'
+    } as const;
+
+    export type ModelOptionsTypes = {
+        User: UserOptions,
+        Lead: LeadOptions
+    }
+
+    export type ModelKeys = keyof typeof ModelType;
+    export type InstanceType<T> = T extends new (...args: any[]) => infer R ? R : any;
+    export type ModelInstance<K extends ModelKeys> = InstanceType<typeof ModelType[K]>;
+
+    export type InstanceOptions<K extends ModelKeys> = 
+        K extends 'User' ? UserOptions : 
+        K extends 'Lead' ? LeadOptions :
+        {id: string; }
+    ```
+
 4. **Social Media Applications**:
     - Manage user profiles, posts, comments, and messages.
     - Adapt to new features like stories, reels, and live streams by introducing new models.
+
+    **New Model**: `Post`
+    
+    This example demonstrates how to create a `Post` model to manage entities like posts in a social media application. The model includes properties such as `content`, `author`, `timestamp`, and `likes`. It is registered in the model registry and integrated with the storage handling logic.
+
+    #### models/post.model.ts
+
+    ```typescript
+    import { AbstractModel } from "./abstract.model";
+
+    export type PostOptions = {
+        id: string;
+        content: string;
+        author: string;
+        timestamp: string;
+        likes: number;
+    }
+
+    export class Post extends AbstractModel {
+        public id: string = '';
+        public content: string = '';
+        public author: string = '';
+        public timestamp: string = '';
+        public likes: number = 0;
+
+        constructor(options?: PostOptions) {
+            super(options || {id: '', content: '', author: '', timestamp: '', likes: 0});
+            this.id = options ? options.id : '';
+            this.content = options ? options.content : '';
+           this.author = options ? options.author : '';
+            this.timestamp = options ? options.timestamp : '';
+            this.likes = options ? options.likes : 0;
+        }
+
+        public override validateOptions(options: PostOptions): void {
+            super.validateOptions(options);
+            if (!options.content || !options.author || !options.timestamp) {
+                throw new Error("Invalid options: content, author, and timestamp are required for Post");
+            }
+        }
+    }
+    ```
+
+    #### models/model.register.ts
+
+    ```typescript
+    import { User, UserOptions } from "./user.model";
+    import { Post, PostOptions } from "./post.model";
+
+    export const ModelType = {
+        User: User,
+        Post: Post
+    } as const;
+
+    export const CollectionPath = {
+        User: 'users',
+        Post: 'posts'
+    } as const;
+
+    export const ModelKeyToCollectionKey = {
+        User: 'users',
+        Post: 'posts'
+    } as const;
+
+    export type ModelOptionsTypes = {
+        User: UserOptions,
+        Post: PostOptions
+    }
+
+    export type ModelKeys = keyof typeof ModelType;
+    export type InstanceType<T> = T extends new (...args: any[]) => infer R ? R : any;
+    export type ModelInstance<K extends ModelKeys> = InstanceType<typeof ModelType[K]>;
+
+    export type InstanceOptions<K extends ModelKeys> = 
+        K extends 'User' ? UserOptions : 
+        K extends 'Post' ? PostOptions :
+        {id: string; }
+    ```
 
 5. **Healthcare Management Systems**:
     - Handle patient records, appointments, prescriptions, and medical history.
     - Add new models for lab results, billing, and insurance information.
 
+    **New Model**: `PatientRecord`
+    
+    This example demonstrates how to create a `PatientRecord` model to manage entities like patient records in a healthcare management system. The model includes properties such as `patientId`, `name`, `medicalHistory`, and `appointments`. It is registered in the model registry and integrated with the storage handling logic.
+
+    #### models/patientRecord.model.ts
+
+    ```typescript
+    import { AbstractModel } from "./abstract.model";
+
+    export type PatientRecordOptions = {
+        id: string;
+        patientId: string;
+        name: string;
+        medicalHistory: string;
+        appointments: string[];
+    }
+
+    export class PatientRecord extends AbstractModel {
+        public id: string = '';
+        public patientId: string = '';
+        public name: string = '';
+        public medicalHistory: string = '';
+        public appointments: string[] = [];
+
+        constructor(options?: PatientRecordOptions) {
+            super(options || {id: '', patientId: '', name: '', medicalHistory: '', appointments: []});
+            this.id = options ? options.id : '';
+            this.patientId = options ? options.patientId : '';
+            this.name = options ? options.name : '';
+            this.medicalHistory = options ? options.medicalHistory : '';
+            this.appointments = options ? options.appointments : [];
+        }
+
+        public override validateOptions(options: PatientRecordOptions): void {
+            super.validateOptions(options);
+            if (!options.patientId || !options.name || !options.medicalHistory) {
+                throw new Error("Invalid options: patientId, name, and medicalHistory are required for PatientRecord");
+            }
+        }
+    }
+    ```
+
+    #### models/model.register.ts
+
+    ```typescript
+    import { User, UserOptions } from "./user.model";
+    import { PatientRecord, PatientRecordOptions } from "./patientRecord.model";
+
+    export const ModelType = {
+        User: User,
+        PatientRecord: PatientRecord
+    } as const;
+
+    export const CollectionPath = {
+        User: 'users',
+        PatientRecord: 'patientRecords'
+    } as const;
+
+    export const ModelKeyToCollectionKey = {
+        User: 'users',
+        PatientRecord: 'patientRecords'
+    } as const;
+
+    export type ModelOptionsTypes = {
+        User: UserOptions,
+        PatientRecord: PatientRecordOptions
+    }
+
+    export type ModelKeys = keyof typeof ModelType;
+    export type InstanceType<T> = T extends new (...args: any[]) => infer R ? R : any;
+    export type ModelInstance<K extends ModelKeys> = InstanceType<typeof ModelType[K]>;
+
+    export type InstanceOptions<K extends ModelKeys> = 
+        K extends 'User' ? UserOptions : 
+        K extends 'PatientRecord' ? PatientRecordOptions :
+        {id: string; }
+    ```
+
 6. **Project Management Tools**:
     - Manage projects, tasks, timelines, and team members.
     - Scale to include additional features like resource management and time tracking with new models.
 
+    **New Model**: `Project`
+    
+    This example demonstrates how to create a `Project` model to manage entities like projects in a project management tool. The model includes properties such as `name`, `description`, `startDate`, `endDate`, and `tasks`. It is registered in the model registry and integrated with the storage handling logic.
+
+    #### models/project.model.ts
+
+    ```typescript
+    import { AbstractModel } from "./abstract.model";
+
+    export type ProjectOptions = {
+        id: string;
+        name: string;
+        description: string;
+        startDate: string;
+        endDate: string;
+        tasks: string[];
+    }
+
+    export class Project extends AbstractModel {
+        public id: string = '';
+        public name: string = '';
+        public description: string = '';
+        public startDate: string = '';
+        public endDate: string = '';
+        public tasks: string[] = [];
+
+        constructor(options?: ProjectOptions) {
+            super(options || {id: '', name: '', description: '', startDate: '', endDate: '', tasks: []});
+            this.id = options ? options.id : '';
+            this.name = options ? options.name : '';
+            this.description = options ? options.description : '';
+            this.startDate = options ? options.startDate : '';
+            this.endDate = options ? options.endDate : '';
+            this.tasks = options ? options.tasks : [];
+        }
+
+        public override validateOptions(options: ProjectOptions): void {
+            super.validateOptions(options);
+            if (!options.name || !options.description || !options.startDate || !options.endDate) {
+                throw new Error("Invalid options: name, description, startDate, and endDate are required for Project");
+            }
+        }
+    }
+    ```
+
+    #### models/model.register.ts
+
+    ```typescript
+    import { User, UserOptions } from "./user.model";
+    import { Project, ProjectOptions } from "./project.model";
+
+    export const ModelType = {
+        User: User,
+        Project: Project
+    } as const;
+
+    export const CollectionPath = {
+        User: 'users',
+        Project: 'projects'
+    } as const;
+
+    export const ModelKeyToCollectionKey = {
+        User: 'users',
+        Project: 'projects'
+    } as const;
+
+    export type ModelOptionsTypes = {
+        User: UserOptions,
+        Project: ProjectOptions
+    }
+
+    export type ModelKeys = keyof typeof ModelType;
+    export type InstanceType<T> = T extends new (...args: any[]) => infer R ? R : any;
+    export type ModelInstance<K extends ModelKeys> = InstanceType<typeof ModelType[K]>;
+
+    export type InstanceOptions<K extends ModelKeys> = 
+        K extends 'User' ? UserOptions : 
+        K extends 'Project' ? ProjectOptions :
+        {id: string; }
+    ```
+
+7. **Inventory Management Systems**:
+    - Manage inventory, suppliers, and stock levels.
+    - Add new models for purchase orders, stock movements, and supplier management.
+
+    **New Model**: `InventoryItem`
+    
+    This example demonstrates how to create an `InventoryItem` model to manage entities like inventory items in an inventory management system. The model includes properties such as `itemName`, `quantity`, `location`, and `supplier`. It is registered in the model registry and integrated with the storage handling logic.
+
+    #### models/inventoryItem.model.ts
+
+    ```typescript
+    import { AbstractModel } from "./abstract.model";
+
+    export type InventoryItemOptions = {
+        id: string;
+        itemName: string;
+        quantity: number;
+        location: string;
+        supplier: string;
+    }
+
+    export class InventoryItem extends AbstractModel {
+        public id: string = '';
+        public itemName: string = '';
+        public quantity: number = 0;
+        public location: string = '';
+        public supplier: string = '';
+
+        constructor(options?: InventoryItemOptions) {
+            super(options || {id: '', itemName: '', quantity: 0, location: '', supplier: ''});
+            this.id = options ? options.id : '';
+            this.itemName = options ? options.itemName : '';
+            this.quantity = options ? options.quantity : 0;
+            this.location = options ? options.location : '';
+            this.supplier = options ? options.supplier : '';
+        }
+
+        public override validateOptions(options: InventoryItemOptions): void {
+            super.validateOptions(options);
+            if (!options.itemName || !options.quantity || !options.location || !options.supplier) {
+                throw new Error("Invalid options: itemName, quantity, location, and supplier are required for InventoryItem");
+            }
+        }
+    }
+    ```
+
+    #### models/model.register.ts
+
+    ```typescript
+    import { User, UserOptions } from "./user.model";
+    import { InventoryItem, InventoryItemOptions } from "./inventoryItem.model";
+
+    export const ModelType = {
+        User: User,
+        InventoryItem: InventoryItem
+    } as const;
+
+    export const CollectionPath = {
+        User: 'users',
+        InventoryItem: 'inventoryItems'
+    } as const;
+
+    export const ModelKeyToCollectionKey = {
+        User: 'users',
+        InventoryItem: 'inventoryItems'
+    } as const;
+
+    export type ModelOptionsTypes = {
+        User: UserOptions,
+        InventoryItem: InventoryItemOptions
+    }
+
+    export type ModelKeys = keyof typeof ModelType;
+    export type InstanceType<T> = T extends new (...args: any[]) => infer R ? R : any;
+    export type ModelInstance<K extends ModelKeys> = InstanceType<typeof ModelType[K]>;
+
+    export type InstanceOptions<K extends ModelKeys> = 
+        K extends 'User' ? UserOptions : 
+        K extends 'InventoryItem' ? InventoryItemOptions :
+        {id: string; }
+    ```
+
+8. **Financial Management Systems**:
+    - Manage financial records, transactions, and accounts.
+    - Add new models for invoices, expenses, and budget planning.
+
+    **New Model**: `Transaction`
+    
+    This example demonstrates how to create a `Transaction` model to manage entities like transactions in a financial management system. The model includes properties such as `amount`, `date`, `type`, and `description`. It is registered in the model registry and integrated with the storage handling logic.
+
+    #### models/transaction.model.ts
+
+    ```typescript
+    import { AbstractModel } from "./abstract.model";
+
+    export type TransactionOptions = {
+        id: string;
+        amount: number;
+        date: string;
+        type: string;
+        description: string;
+    }
+
+    export class Transaction extends AbstractModel {
+        public id: string = '';
+        public amount: number = 0;
+        public date: string = '';
+        public type: string = '';
+        public description: string = '';
+
+        constructor(options?: TransactionOptions) {
+            super(options || {id: '', amount: 0, date: '', type: '', description: ''});
+            this.id = options ? options.id : '';
+            this.amount = options ? options.amount : 0;
+            this.date = options ? options.date : '';
+            this.type = options ? options.type : '';
+            this.description = options ? options.description : '';
+        }
+
+        public override validateOptions(options: TransactionOptions): void {
+            super.validateOptions(options);
+            if (!options.amount || !options.date || !options.type || !options.description) {
+                throw new Error("Invalid options: amount, date, type, and description are required for Transaction");
+            }
+        }
+    }
+    ```
+
+    #### models/model.register.ts
+
+    ```typescript
+    import { User, UserOptions } from "./user.model";
+    import { Transaction, TransactionOptions } from "./transaction.model";
+
+    export const ModelType = {
+        User: User,
+        Transaction: Transaction
+    } as const;
+
+    export const CollectionPath = {
+        User: 'users',
+        Transaction: 'transactions'
+    } as const;
+
+    export const ModelKeyToCollectionKey = {
+        User: 'users',
+        Transaction: 'transactions'
+    } as const;
+
+    export type ModelOptionsTypes = {
+        User: UserOptions,
+        Transaction: TransactionOptions
+    }
+
+    export type ModelKeys = keyof typeof ModelType;
+    export type InstanceType<T> = T extends new (...args: any[]) => infer R ? R : any;
+    export type ModelInstance<K extends ModelKeys> = InstanceType<typeof ModelType[K]>;
+
+    export type InstanceOptions<K extends ModelKeys> = 
+        K extends 'User' ? UserOptions : 
+        K extends 'Transaction' ? TransactionOptions :
+        {id: string; }
+    ```
 ### Conclusion
 
 The abstract model approach combined with the strategy pattern for storage provides a scalable and adaptable framework for managing diverse data models in a TypeScript application. This design enhances modularity, maintainability, and scalability, making it suitable for applications that need to evolve over time with changing data management requirements. Additionally, the benefits of type inference and global access to models through the `App` class further streamline development and contribute to the overall scalability of the application.
