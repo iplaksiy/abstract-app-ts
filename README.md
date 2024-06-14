@@ -329,7 +329,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
             super(options || {id: '', content: '', author: '', timestamp: '', likes: 0});
             this.id = options ? options.id : '';
             this.content = options ? options.content : '';
-           this.author = options ? options.author : '';
+            this.author = options ? options.author : '';
             this.timestamp = options ? options.timestamp : '';
             this.likes = options ? options.likes : 0;
         }
