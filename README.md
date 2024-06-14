@@ -1,4 +1,4 @@
-# Project Title: Abstract Model App
+# Abstract Model App
 
 ## Project Description
 
