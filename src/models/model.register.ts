@@ -22,4 +22,4 @@ export type ModelInstance<K extends ModelKeys> = InstanceType<typeof ModelType[K
 
 export type InstanceOptions<K extends ModelKeys> = 
     K extends 'User' ? UserOptions : 
-    {id: string; }
+    {id?: string; }

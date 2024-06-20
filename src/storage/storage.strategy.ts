@@ -10,4 +10,5 @@ export abstract class StorageStrategy {
     public abstract update(collection: string, key: string, data: string): Promise<StorageStrategyResponse>;
     public abstract delete(collection: string, key: string): Promise<StorageStrategyResponse>;
     public abstract deserialize<K extends ModelKeys>(modelType: K, data: string | null): Promise<ModelInstance<K> | null>;
+    public generateId?(): string;
 }

@@ -42,6 +42,7 @@ This project is a TypeScript-based application that provides a framework for cre
 
 - Ensure you have the necessary TypeScript and Node.js setup.
 - You can adjust the storage strategy by modifying the `setStrategy` method call in `app.ts`.
+- **ID Generation**: The `Storage` class now includes a `generateId` method that can utilize the storage strategy's ID generation if available. If the storage strategy does not provide an ID generation method, it falls back to using UUID.
 
 ### VSCode Tasks Configuration
 
@@ -87,7 +88,7 @@ This project is a TypeScript-based application that provides a framework for cre
 
 ## Usage
 
-- **Creating a User**: The application generates a UUID for the user, creates a user instance, and saves it to the storage.
+- **Creating a User**: The application generates an ID for the user using the `Storage` class's `generateId` method, creates a user instance, and saves it to the storage. The storage strategy may provide its own ID generation method if applicable.
 - **Retrieving a User**: The user is retrieved using its UUID.
 - **Updating a User**: The user's details are updated and saved back to the storage.
 - **Deleting a User**: The user is deleted from the storage.
@@ -104,7 +105,6 @@ const app = new App();
 
 // Create a user
 const userOptions: UserOptions = {
-    id: app.generateUUID(),
     name: 'John Doe',
     email: 'john.doe@example.com'
 };
@@ -115,7 +115,7 @@ async function run() {
     console.log('User created:', user);
 
     // Retrieve the user
-    const retrievedUser = await app.get('User', userOptions.id);
+    const retrievedUser = await app.get('User', user.id);
     console.log('User retrieved:', retrievedUser);
 
     // Update the user
@@ -126,15 +126,15 @@ async function run() {
     }
 
     // Retrieve the updated user
-    const updatedUser = await app.get('User', userOptions.id);
+    const updatedUser = await app.get('User', user.id);
     console.log('Updated user retrieved:', updatedUser);
 
     // Delete the user
-    await app.delete('User', userOptions.id);
+    await app.delete('User', user.id);
     console.log('User deleted');
 
     // Try to retrieve the deleted user
-    const deletedUser = await app.get('User', userOptions.id);
+    const deletedUser = await app.get('User', user.id);
     console.log('Deleted user retrieved:', deletedUser);
 }
 

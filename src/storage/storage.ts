@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { StorageStrategyResponse, StorageStrategy } from "./storage.strategy";
 import { ModelInstance, ModelKeyToCollectionKey, ModelKeys } from "../models/model.register";
 import { IDBStrategy } from "./idb.strategy";
@@ -50,5 +51,9 @@ export class Storage {
         } else {
             this.strategy = strategy;
         }
+    }
+
+    public generateId(): string {
+        return this.strategy.generateId ? this.strategy.generateId() : uuidv4();
     }
 }

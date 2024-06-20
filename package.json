@@ -1,6 +1,10 @@
 {
+  "scripts": {
+    "prompt": "ts-node ./.prompt/prompt.ts"
+  },
   "dependencies": {
     "@types/uuid": "^9.0.8",
+    "ts-node": "^10.9.2",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

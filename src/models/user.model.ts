@@ -1,19 +1,16 @@
 import { AbstractModel } from "./abstract.model";
 
 export type UserOptions = {
-    id: string;
+    id?: string;
     name: string;
     email?: string;
 }
 
 export class User extends AbstractModel {
-    public id: string = '';
     public name: string = '';
 
-
     constructor (options?: UserOptions) {
-        super(options || {id: '', name: ''});
-        this.id = options ? options.id : '';
+        super(options || {name: ''});
         this.name = options ? options.name : '';   }
 
     public override validateOptions(options: UserOptions): void {

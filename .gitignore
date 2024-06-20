@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+.prompt
 
 # Node
 /node_modules

@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { InstanceOptions, ModelInstance, ModelKeys, ModelType } from './models/model.register';
 import { StorageResponse, Storage } from './storage/storage';
 
@@ -16,6 +14,10 @@ export class App {
   }
 
   public create<K extends ModelKeys>(key: K, options: CreateOptions<K>): ModelInstance<K> | Promise<ModelInstance<K>> {
+    if (!options.state.id) {
+      options.state.id = this.storage.generateId();
+    }
+
     const model = new ModelType[key](options.state) as ModelInstance<K>;
 
     if (options.saveToStorage) {
@@ -38,11 +40,4 @@ export class App {
   public async delete<K extends ModelKeys>(key: K, id: string): Promise<StorageResponse> {
     return this.storage.delete(key, id);
   }
-  
-  public generateUUID(): string {
-    return uuidv4();
-  }
-  
-  
-  
 }
