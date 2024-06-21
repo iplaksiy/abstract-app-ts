@@ -202,7 +202,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     import { AbstractModel } from "./abstract.model";
 
     export type ArticleOptions = {
-        id: string;
+        id?: string;
         title: string;
         content: string;
         author: string;
@@ -210,7 +210,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
     }
 
     export class Article extends AbstractModel {
-        public id: string = '';
         public title: string = '';
         public content: string = '';
         public author: string = '';
@@ -218,7 +217,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
 
         constructor(options?: ArticleOptions) {
             super(options || {id: '', title: '', content: '', author: '', publishedDate: ''});
-            this.id = options ? options.id : '';
             this.title = options ? options.title : '';
             this.content = options ? options.content : '';
             this.author = options ? options.author : '';
@@ -267,7 +265,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     export type InstanceOptions<K extends ModelKeys> = 
         K extends 'User' ? UserOptions : 
         K extends 'Article' ? ArticleOptions :
-        {id: string; }
+        {id?: string; }
     ```
 
 2. **E-commerce Platforms**:
@@ -284,7 +282,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     import { AbstractModel } from "./abstract.model";
 
     export type ProductOptions = {
-        id: string;
+        id?: string;
         name: string;
         description: string;
         price: number;
@@ -292,7 +290,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
     }
 
     export class Product extends AbstractModel {
-        public id: string = '';
         public name: string = '';
         public description: string = '';
         public price: number = 0;
@@ -300,7 +297,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
 
         constructor(options?: ProductOptions) {
             super(options || {id: '', name: '', description: '', price: 0, category: ''});
-            this.id = options ? options.id : '';
             this.name = options ? options.name : '';
             this.description = options ? options.description : '';
             this.price = options ? options.price : 0;
@@ -349,7 +345,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     export type InstanceOptions<K extends ModelKeys> = 
         K extends 'User' ? UserOptions : 
         K extends 'Product' ? ProductOptions :
-        {id: string; }
+        {id?: string; }
     ```
 
 3. **Customer Relationship Management (CRM) Systems**:
@@ -366,7 +362,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     import { AbstractModel } from "./abstract.model";
 
     export type LeadOptions = {
-        id: string;
+        id?: string;
         name: string;
         contactInfo: string;
         status: string;
@@ -374,7 +370,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
     }
 
     export class Lead extends AbstractModel {
-        public id: string = '';
         public name: string = '';
         public contactInfo: string = '';
         public status: string = '';
@@ -382,7 +377,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
 
         constructor(options?: LeadOptions) {
             super(options || {id: '', name: '', contactInfo: '', status: ''});
-            this.id = options ? options.id : '';
             this.name = options ? options.name : '';
             this.contactInfo = options ? options.contactInfo : '';
             this.status = options ? options.status : '';
@@ -431,7 +425,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     export type InstanceOptions<K extends ModelKeys> = 
         K extends 'User' ? UserOptions : 
         K extends 'Lead' ? LeadOptions :
-        {id: string; }
+        {id?: string; }
     ```
 
 4. **Social Media Applications**:
@@ -448,7 +442,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     import { AbstractModel } from "./abstract.model";
 
     export type PostOptions = {
-        id: string;
+        id?: string;
         content: string;
         author: string;
         timestamp: string;
@@ -456,7 +450,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
     }
 
     export class Post extends AbstractModel {
-        public id: string = '';
         public content: string = '';
         public author: string = '';
         public timestamp: string = '';
@@ -464,7 +457,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
 
         constructor(options?: PostOptions) {
             super(options || {id: '', content: '', author: '', timestamp: '', likes: 0});
-            this.id = options ? options.id : '';
             this.content = options ? options.content : '';
             this.author = options ? options.author : '';
             this.timestamp = options ? options.timestamp : '';
@@ -513,7 +505,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     export type InstanceOptions<K extends ModelKeys> = 
         K extends 'User' ? UserOptions : 
         K extends 'Post' ? PostOptions :
-        {id: string; }
+        {id?: string; }
     ```
 
 5. **Healthcare Management Systems**:
@@ -530,7 +522,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     import { AbstractModel } from "./abstract.model";
 
     export type PatientRecordOptions = {
-        id: string;
+        id?: string;
         patientId: string;
         name: string;
         medicalHistory: string;
@@ -538,7 +530,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
     }
 
     export class PatientRecord extends AbstractModel {
-        public id: string = '';
         public patientId: string = '';
         public name: string = '';
         public medicalHistory: string = '';
@@ -546,7 +537,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
 
         constructor(options?: PatientRecordOptions) {
             super(options || {id: '', patientId: '', name: '', medicalHistory: '', appointments: []});
-            this.id = options ? options.id : '';
             this.patientId = options ? options.patientId : '';
             this.name = options ? options.name : '';
             this.medicalHistory = options ? options.medicalHistory : '';
@@ -595,7 +585,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     export type InstanceOptions<K extends ModelKeys> = 
         K extends 'User' ? UserOptions : 
         K extends 'PatientRecord' ? PatientRecordOptions :
-        {id: string; }
+        {id?: string; }
     ```
 
 6. **Project Management Tools**:
@@ -612,7 +602,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     import { AbstractModel } from "./abstract.model";
 
     export type ProjectOptions = {
-        id: string;
+        id?: string;
         name: string;
         description: string;
         startDate: string;
@@ -621,7 +611,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
     }
 
     export class Project extends AbstractModel {
-        public id: string = '';
         public name: string = '';
         public description: string = '';
         public startDate: string = '';
@@ -630,7 +619,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
 
         constructor(options?: ProjectOptions) {
             super(options || {id: '', name: '', description: '', startDate: '', endDate: '', tasks: []});
-            this.id = options ? options.id : '';
             this.name = options ? options.name : '';
             this.description = options ? options.description : '';
             this.startDate = options ? options.startDate : '';
@@ -680,7 +668,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     export type InstanceOptions<K extends ModelKeys> = 
         K extends 'User' ? UserOptions : 
         K extends 'Project' ? ProjectOptions :
-        {id: string; }
+        {id?: string; }
     ```
 
 7. **Inventory Management Systems**:
@@ -697,7 +685,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     import { AbstractModel } from "./abstract.model";
 
     export type InventoryItemOptions = {
-        id: string;
+        id?: string;
         itemName: string;
         quantity: number;
         location: string;
@@ -705,7 +693,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
     }
 
     export class InventoryItem extends AbstractModel {
-        public id: string = '';
         public itemName: string = '';
         public quantity: number = 0;
         public location: string = '';
@@ -713,7 +700,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
 
         constructor(options?: InventoryItemOptions) {
             super(options || {id: '', itemName: '', quantity: 0, location: '', supplier: ''});
-            this.id = options ? options.id : '';
             this.itemName = options ? options.itemName : '';
             this.quantity = options ? options.quantity : 0;
             this.location = options ? options.location : '';
@@ -762,7 +748,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     export type InstanceOptions<K extends ModelKeys> = 
         K extends 'User' ? UserOptions : 
         K extends 'InventoryItem' ? InventoryItemOptions :
-        {id: string; }
+        {id?: string; }
     ```
 
 8. **Financial Management Systems**:
@@ -779,7 +765,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     import { AbstractModel } from "./abstract.model";
 
     export type TransactionOptions = {
-        id: string;
+        id?: string;
         amount: number;
         date: string;
         type: string;
@@ -787,7 +773,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
     }
 
     export class Transaction extends AbstractModel {
-        public id: string = '';
         public amount: number = 0;
         public date: string = '';
         public type: string = '';
@@ -795,7 +780,6 @@ The abstract model approach is versatile and can be applied to a wide range of a
 
         constructor(options?: TransactionOptions) {
             super(options || {id: '', amount: 0, date: '', type: '', description: ''});
-            this.id = options ? options.id : '';
             this.amount = options ? options.amount : 0;
             this.date = options ? options.date : '';
             this.type = options ? options.type : '';
@@ -844,7 +828,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
     export type InstanceOptions<K extends ModelKeys> = 
         K extends 'User' ? UserOptions : 
         K extends 'Transaction' ? TransactionOptions :
-        {id: string; }
+        {id?: string; }
     ```
 ### Conclusion
 
