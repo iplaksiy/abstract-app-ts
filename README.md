@@ -216,7 +216,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
         public publishedDate: string = '';
 
         constructor(options?: ArticleOptions) {
-            super(options || {id: '', title: '', content: '', author: '', publishedDate: ''});
+            super(options || {title: '', content: '', author: '', publishedDate: ''});
             this.title = options ? options.title : '';
             this.content = options ? options.content : '';
             this.author = options ? options.author : '';
@@ -296,7 +296,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
         public category: string = '';
 
         constructor(options?: ProductOptions) {
-            super(options || {id: '', name: '', description: '', price: 0, category: ''});
+            super(options || {name: '', description: '', price: 0, category: ''});
             this.name = options ? options.name : '';
             this.description = options ? options.description : '';
             this.price = options ? options.price : 0;
@@ -376,7 +376,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
         public notes?: string = '';
 
         constructor(options?: LeadOptions) {
-            super(options || {id: '', name: '', contactInfo: '', status: ''});
+            super(options || {name: '', contactInfo: '', status: ''});
             this.name = options ? options.name : '';
             this.contactInfo = options ? options.contactInfo : '';
             this.status = options ? options.status : '';
@@ -456,7 +456,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
         public likes: number = 0;
 
         constructor(options?: PostOptions) {
-            super(options || {id: '', content: '', author: '', timestamp: '', likes: 0});
+            super(options || {content: '', author: '', timestamp: '', likes: 0});
             this.content = options ? options.content : '';
             this.author = options ? options.author : '';
             this.timestamp = options ? options.timestamp : '';
@@ -536,7 +536,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
         public appointments: string[] = [];
 
         constructor(options?: PatientRecordOptions) {
-            super(options || {id: '', patientId: '', name: '', medicalHistory: '', appointments: []});
+            super(options || {patientId: '', name: '', medicalHistory: '', appointments: []});
             this.patientId = options ? options.patientId : '';
             this.name = options ? options.name : '';
             this.medicalHistory = options ? options.medicalHistory : '';
@@ -618,7 +618,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
         public tasks: string[] = [];
 
         constructor(options?: ProjectOptions) {
-            super(options || {id: '', name: '', description: '', startDate: '', endDate: '', tasks: []});
+            super(options || {name: '', description: '', startDate: '', endDate: '', tasks: []});
             this.name = options ? options.name : '';
             this.description = options ? options.description : '';
             this.startDate = options ? options.startDate : '';
@@ -699,7 +699,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
         public supplier: string = '';
 
         constructor(options?: InventoryItemOptions) {
-            super(options || {id: '', itemName: '', quantity: 0, location: '', supplier: ''});
+            super(options || {itemName: '', quantity: 0, location: '', supplier: ''});
             this.itemName = options ? options.itemName : '';
             this.quantity = options ? options.quantity : 0;
             this.location = options ? options.location : '';
@@ -779,7 +779,7 @@ The abstract model approach is versatile and can be applied to a wide range of a
         public description: string = '';
 
         constructor(options?: TransactionOptions) {
-            super(options || {id: '', amount: 0, date: '', type: '', description: ''});
+            super(options || {amount: 0, date: '', type: '', description: ''});
             this.amount = options ? options.amount : 0;
             this.date = options ? options.date : '';
             this.type = options ? options.type : '';
