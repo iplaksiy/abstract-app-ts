@@ -1,25 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export interface Transformable {
-    deserialize(obj: unknown): this;
-    serialize(): any;
-}
-
-export interface ValidatableModel extends Transformable {
-    validateOptions(options: any): void;
-}
-
-export abstract class AbstractModel implements ValidatableModel {
+export abstract class AbstractModel {
     public id: string;
-    public createdOn?: number;
+    public createdOn: number;
     public updatedOn?: number;
     public updatedBy?: string;
 
-    constructor(options: {id?: string; [key: string]: any}) {
+    constructor(options: { id?: string; createdOn?: number; updatedOn?: number; updatedBy?: string; [key: string]: any }) {
         this.id = options.id || uuidv4();
+        this.createdOn = options.createdOn || this.getTime();
         this.validateOptions(options);
         Object.assign(this, options);
-        this.createdOn = this.getTime();
     }
     
     public validateOptions(options: { id?: string; [key: string]: any }): void {

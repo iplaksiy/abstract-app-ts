@@ -21,6 +21,7 @@ async function run() {
     // Update the user
     if (retrievedUser) {
         retrievedUser.name = 'Jane Doe';
+        retrievedUser.email = 'jane.doe@example.com';
         await app.update(retrievedUser);
         console.log('User updated:', retrievedUser);
     }
